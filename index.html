@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Serenê ASMR — Agendamento</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--gd:#1A3D2E;--gm:#2D6A54;--gl:#5B8C7A;--bm:#2E6D8E;--gp:#A8C8BC;--gbg:#E8F5EF;--cream:#F7FAF8;--white:#fff;--border:#B8D8CC;--td:#1A3D2E;--tm:#3A5A4A;--tl:#5B8C7A;}
+body{font-family:'DM Sans',Arial,sans-serif;background:var(--cream);min-height:100vh;}
+.app{max-width:680px;margin:0 auto;}
+nav{background:var(--gd);padding:0 1.25rem;display:flex;align-items:center;justify-content:space-between;height:58px;position:sticky;top:0;z-index:100;}
+.logo{font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;font-weight:300;letter-spacing:4px;color:#E8F5EF;}
+.logo span{font-size:9px;letter-spacing:3px;color:var(--gp);display:block;margin-top:-2px;font-family:'DM Sans',Arial,sans-serif;}
+.nav-tabs{display:flex;gap:3px;}
+.tab{padding:7px 13px;border-radius:20px;font-size:12px;cursor:pointer;border:none;background:transparent;color:var(--gp);font-family:'DM Sans',Arial,sans-serif;transition:all .15s;}
+.tab.active{background:var(--gm);color:#E8F5EF;font-weight:500;}
+.tab:hover:not(.active){background:rgba(255,255,255,0.1);color:#fff;}
+.page{display:none;padding:1.25rem;}
+.page.active{display:block;}
+.hero{background:var(--gd);border-radius:16px;padding:2.5rem 1.5rem;text-align:center;margin-bottom:1.25rem;}
+.hero h1{font-family:'Cormorant Garamond',Georgia,serif;font-size:36px;font-weight:300;color:#E8F5EF;letter-spacing:5px;margin-bottom:4px;}
+.hero-sub{font-size:10px;color:var(--gp);letter-spacing:4px;margin-bottom:1rem;}
+.hero-line{width:40px;height:0.5px;background:var(--gp);margin:0 auto 1rem;}
+.hero-tag{font-size:14px;color:#B8D8CC;line-height:1.8;margin-bottom:1.5rem;}
+.btn-cta{display:inline-block;padding:13px 36px;background:#E8F5EF;color:var(--gd);border-radius:50px;font-size:13px;letter-spacing:1.5px;cursor:pointer;border:none;font-family:'DM Sans',Arial,sans-serif;font-weight:500;}
+.btn-cta:hover{background:#fff;}
+.btn-ol{display:inline-block;padding:10px 24px;border:0.5px solid var(--gp);color:var(--gp);border-radius:50px;font-size:12px;cursor:pointer;background:transparent;font-family:'DM Sans',Arial,sans-serif;margin-top:10px;}
+.btn-ol:hover{background:rgba(255,255,255,0.1);}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:1.25rem;}
+.feat-c{background:var(--white);border:0.5px solid var(--border);border-radius:12px;padding:.875rem;text-align:center;}
+.feat-icon{font-size:22px;margin-bottom:6px;}
+.feat-name{font-size:12px;font-weight:500;color:var(--gd);margin-bottom:3px;}
+.feat-desc{font-size:11px;color:var(--tl);}
+.coupon-strip{background:var(--white);border:0.5px solid var(--border);border-radius:12px;padding:.875rem 1rem;display:flex;align-items:center;gap:10px;margin-bottom:1.25rem;}
+.cpill{background:var(--gd);color:#E8F5EF;border-radius:50px;padding:5px 14px;font-size:12px;font-weight:500;white-space:nowrap;letter-spacing:1px;}
+.slabel{font-size:10px;font-weight:500;letter-spacing:.1em;color:var(--tl);margin-bottom:12px;display:block;}
+.svc-card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:1.25rem;margin-bottom:10px;}
+.svc-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
+.svc-name{font-family:'Cormorant Garamond',Georgia,serif;font-size:18px;color:var(--gd);}
+.svc-price{font-size:13px;font-weight:500;color:var(--gm);white-space:nowrap;margin-left:8px;}
+.svc-desc{font-size:12px;color:var(--tm);line-height:1.6;margin-bottom:10px;}
+.tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px;}
+.tag{padding:3px 10px;border-radius:50px;font-size:11px;}
+.tg{background:#D4EDDF;color:#1A3D2E;}
+.tb{background:#D0E8F5;color:#0C3D5A;}
+.tp{background:#FDE8CC;color:#6B3A0A;}
+.svc-btns{display:flex;gap:8px;flex-wrap:wrap;}
+.btn-vid{display:inline-flex;align-items:center;gap:5px;padding:9px 14px;border:1.5px solid var(--bm);color:var(--bm);border-radius:8px;font-size:12px;cursor:pointer;background:transparent;font-family:'DM Sans',Arial,sans-serif;font-weight:500;text-decoration:none;}
+.btn-vid:hover{background:#D0E8F5;}
+.btn-wpp{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;background:var(--gm);color:#E8F5EF;border-radius:8px;font-size:12px;cursor:pointer;border:none;font-family:'DM Sans',Arial,sans-serif;font-weight:500;text-decoration:none;}
+.btn-wpp:hover{background:var(--gd);}
+.divider{height:0.5px;background:var(--border);margin:1.25rem 0;}
+.combo-c{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:1.25rem;margin-bottom:10px;}
+.combo-h{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;}
+.combo-n{font-size:14px;font-weight:500;color:var(--gd);}
+.combo-p{font-size:16px;font-weight:500;color:var(--gm);}
+.combo-d{font-size:12px;color:var(--tm);line-height:1.6;margin-bottom:8px;}
+.save-pill{font-size:11px;color:#1A3D2E;background:#D4EDDF;padding:3px 10px;border-radius:50px;display:inline-block;}
+.feat-border{border:2px solid var(--gm);}
+.best{font-size:10px;background:var(--gm);color:#E8F5EF;padding:2px 10px;border-radius:50px;display:inline-block;margin-bottom:8px;letter-spacing:.04em;}
+.best-b{background:var(--bm);}
+.loyalty-box{background:var(--gbg);border:1px solid var(--border);border-radius:14px;padding:1.25rem;margin-bottom:1.25rem;}
+.loyalty-steps{display:flex;align-items:center;gap:6px;margin-top:12px;flex-wrap:wrap;}
+.lstep{display:flex;flex-direction:column;align-items:center;gap:4px;}
+.lstep-c{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;}
+.wpp-section{background:var(--gd);border-radius:16px;padding:1.5rem;text-align:center;margin-bottom:1.25rem;}
+.wpp-title{font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;color:#E8F5EF;margin-bottom:8px;}
+.wpp-desc{font-size:13px;color:var(--gp);line-height:1.7;margin-bottom:1.25rem;}
+.wpp-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:1.25rem;}
+.wpp-step{background:rgba(255,255,255,0.08);border-radius:10px;padding:.875rem .75rem;text-align:center;}
+.wpp-step-num{font-size:20px;font-weight:500;color:var(--gp);margin-bottom:4px;}
+.wpp-step-txt{font-size:11px;color:#B8D8CC;line-height:1.4;}
+.btn-wpp-big{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;background:#25D366;color:#fff;border-radius:50px;font-size:14px;cursor:pointer;border:none;font-family:'DM Sans',Arial,sans-serif;font-weight:500;text-decoration:none;letter-spacing:.5px;}
+.btn-wpp-big:hover{background:#1ebe59;}
+.faq-item{background:var(--white);border:0.5px solid var(--border);border-radius:12px;padding:1rem 1.25rem;margin-bottom:8px;}
+.faq-q{font-size:13px;font-weight:500;color:var(--gd);margin-bottom:6px;}
+.faq-a{font-size:12px;color:var(--tm);line-height:1.6;}
+.sobre-box{background:var(--white);border:0.5px solid var(--border);border-radius:14px;padding:1.5rem;margin-bottom:1.25rem;}
+.sobre-title{font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;color:var(--gd);margin-bottom:12px;}
+.sobre-text{font-size:13px;color:var(--tm);line-height:1.8;margin-bottom:16px;}
+.info-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:0.5px solid var(--border);font-size:13px;color:var(--tm);}
+.info-icon{font-size:18px;color:var(--gm);width:24px;text-align:center;}
+@media(max-width:480px){
+  .nav-tabs .tab{padding:6px 9px;font-size:11px;}
+  .hero h1{font-size:28px;}
+  .wpp-steps{grid-template-columns:1fr;}
+  .feat-grid{grid-template-columns:1fr 1fr;}
+  .svc-btns{flex-direction:column;}
+  .btn-vid,.btn-wpp{width:100%;justify-content:center;}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<nav>
+  <div class="logo">serenê <span>· ASMR ·</span></div>
+  <div class="nav-tabs">
+    <button class="tab active" onclick="showPage('home')">Início</button>
+    <button class="tab" onclick="showPage('services')">Serviços</button>
+    <button class="tab" onclick="showPage('agendar')">Agendar</button>
+    <button class="tab" onclick="showPage('sobre')">Sobre</button>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <h1>serenê</h1>
+    <div class="hero-sub">· ASMR · RELAXAMENTO SENSORIAL ·</div>
+    <div class="hero-line"></div>
+    <div class="hero-tag">Um espaço criado para você parar,<br>respirar e sentir de verdade.</div>
+    <button class="btn-cta" onclick="showPage('agendar')">Agendar minha sessão</button><br>
+    <button class="btn-ol" onclick="showPage('services')">Ver serviços</button>
+  </div>
+  <div class="feat-grid">
+    <div class="feat-c"><div class="feat-icon">🌿</div><div class="feat-name">ASMR presencial</div><div class="feat-desc">Único no Brasil</div></div>
+    <div class="feat-c"><div class="feat-icon">🤍</div><div class="feat-name">Ambiente íntimo</div><div class="feat-desc">Espaço acolhedor</div></div>
+    <div class="feat-c"><div class="feat-icon">⏱</div><div class="feat-name">30 a 60 min</div><div class="feat-desc">Seu ritmo</div></div>
+  </div>
+  <div class="coupon-strip">
+    <div class="cpill">SERENE10</div>
+    <div style="font-size:12px;color:var(--tm);line-height:1.5;">10% de desconto na sua <strong>primeira sessão</strong> de 60 min. Exclusivo para novos clientes.</div>
+  </div>
+  <div class="loyalty-box">
+    <div style="font-size:13px;font-weight:500;color:var(--gd);margin-bottom:4px;">🎁 Fidelidade 3+1</div>
+    <div style="font-size:12px;color:var(--tm);">Complete 3 sessões avulsas e ganhe 30% de desconto na 4ª</div>
+    <div class="loyalty-steps">
+      <div class="lstep"><div class="lstep-c" style="background:#D4EDDF;color:#1A3D2E;">1ª</div><div style="font-size:10px;color:var(--tl);">avulsa</div></div>
+      <span style="color:var(--gp);">→</span>
+      <div class="lstep"><div class="lstep-c" style="background:#D4EDDF;color:#1A3D2E;">2ª</div><div style="font-size:10px;color:var(--tl);">avulsa</div></div>
+      <span style="color:var(--gp);">→</span>
+      <div class="lstep"><div class="lstep-c" style="background:#D4EDDF;color:#1A3D2E;">3ª</div><div style="font-size:10px;color:var(--tl);">avulsa</div></div>
+      <span style="color:var(--gp);">→</span>
+      <div class="lstep"><div class="lstep-c" style="background:var(--gm);color:#E8F5EF;">4ª</div><div style="font-size:10px;color:var(--gm);font-weight:500;">30% off!</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVIÇOS -->
+<div id="page-services" class="page">
+  <span class="slabel">SESSÕES INDIVIDUAIS</span>
+
+  <div class="svc-card">
+    <div class="svc-head"><div class="svc-name">Serenê Flow</div><div class="svc-price">R$ 120 · 60 min</div></div>
+    <div class="svc-desc">Sessão focada na cabeça, rosto e costas — o trio que acumula mais tensão no dia a dia. Combinação de massagem craniana, toque facial e trabalho nas costas.</div>
+    <div class="tags"><span class="tag tg">Cabeça</span><span class="tag tg">Rosto</span><span class="tag tg">Costas</span><span class="tag tb">60 min</span></div>
+    <div class="svc-btns">
+      <a class="btn-vid" href="SEU_LINK_AQUI" target="_blank">▶ Ver como funciona</a>
+      <a class="btn-wpp" href="https://wa.me/5562993303512?text=Olá!%20Gostaria%20de%20agendar%20a%20sessão%20*Serenê%20Flow*%20(60%20min%20-%20R$%20120).%20Quais%20horários%20estão%20disponíveis%3F" target="_blank">📅 Agendar pelo WhatsApp</a>
+    </div>
+  </div>
+
+  <div class="svc-card">
+    <div class="svc-head"><div class="svc-name">Serenê Essenza</div><div class="svc-price">R$ 150 · 60 min</div></div>
+    <div class="svc-desc">A experiência completa. Corpo inteiro — cabeça, rosto, costas, braços, mãos, pernas e pés. Para quem quer se desligar totalmente do mundo.</div>
+    <div class="tags"><span class="tag tg">Corpo completo</span><span class="tag tb">60 min</span><span class="tag tp">Premium</span></div>
+    <div class="svc-btns">
+      <a class="btn-vid" href="SEU_LINK_AQUI" target="_blank">▶ Ver como funciona</a>
+      <a class="btn-wpp" href="https://wa.me/5562993303512?text=Olá!%20Gostaria%20de%20agendar%20a%20sessão%20*Serenê%20Essenza*%20(60%20min%20-%20R$%20150).%20Quais%20horários%20estão%20disponíveis%3F" target="_blank">📅 Agendar pelo WhatsApp</a>
+    </div>
+  </div>
+
+  <div class="svc-card">
+    <div class="svc-head"><div class="svc-name">Scratching Essenza</div><div class="svc-price">R$ 70 · 30 min &nbsp;·&nbsp; R$ 120 · 60 min</div></div>
+    <div class="svc-desc">O clássico do ASMR presencial. Movimentos suaves de scratching nas costas, nuca, orelha e rosto. Induz relaxamento profundo e reduz ansiedade.</div>
+    <div class="tags"><span class="tag tg">Costas</span><span class="tag tg">Nuca</span><span class="tag tg">Orelha</span><span class="tag tg">Rosto</span><span class="tag tb">30 ou 60 min</span></div>
+    <div class="svc-btns">
+      <a class="btn-vid" href="SEU_LINK_AQUI" target="_blank">▶ Ver como funciona</a>
+      <a class="btn-wpp" href="https://wa.me/5562993303512?text=Olá!%20Gostaria%20de%20agendar%20a%20sessão%20*Scratching%20Essenza*.%20Quais%20horários%20estão%20disponíveis%3F%20(30%20min%20-%20R$%2070%20ou%2060%20min%20-%20R$%20120)" target="_blank">📅 Agendar pelo WhatsApp</a>
+    </div>
+  </div>
+
+  <div class="svc-card">
+    <div class="svc-head"><div class="svc-name">Serenê Crânio Cervical</div><div class="svc-price">R$ 65 · 30 min &nbsp;·&nbsp; R$ 110 · 60 min</div></div>
+    <div class="svc-desc">Foco total na cabeça, nuca e cervical. Ideal para quem carrega tensão nessa região por estresse ou trabalho no computador.</div>
+    <div class="tags"><span class="tag tg">Cabeça</span><span class="tag tg">Nuca</span><span class="tag tg">Cervical</span><span class="tag tb">30 ou 60 min</span></div>
+    <div class="svc-btns">
+      <a class="btn-vid" href="SEU_LINK_AQUI" target="_blank">▶ Ver como funciona</a>
+      <a class="btn-wpp" href="https://wa.me/5562993303512?text=Olá!%20Gostaria%20de%20agendar%20a%20sessão%20*Serenê%20Crânio%20Cervical*.%20Quais%20horários%20estão%20disponíveis%3F%20(30%20min%20-%20R$%2065%20ou%2060%20min%20-%20R$%20110)" target="_blank">📅 Agendar pelo WhatsApp</a>
+    </div>
+  </div>
+
+  <div class="svc-card">
+    <div class="svc-head"><div class="svc-name">Back Scratching & Cranial</div><div class="svc-price">R$ 120 · 60 min</div></div>
+    <div class="svc-desc">A combinação perfeita: scratching suave nas costas para ativar o relaxamento, seguido de massagem craniana profunda.</div>
+    <div class="tags"><span class="tag tg">Scratching costas</span><span class="tag tg">Massagem craniana</span><span class="tag tb">60 min</span></div>
+    <div class="svc-btns">
+      <a class="btn-vid" href="SEU_LINK_AQUI" target="_blank">▶ Ver como funciona</a>
+      <a class="btn-wpp" href="https://wa.me/5562993303512?text=Olá!%20Gostaria%20de%20agendar%20a%20sessão%20*Back%20Scratching%20%26%20Cranial*%20(60%20min%20-%20R$%20120).%20Quais%20horários%20estão%20disponíveis%3F" target="_blank">📅 Agendar pelo WhatsApp</a>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <span class="slabel">COMBOS E PACOTES</span>
+  <div class="combo-c"><div class="combo-h"><div class="combo-n">Combo Duplo</div><div class="combo-p">R$ 210</div></div><div class="combo-d">2 sessões de 60 min à sua escolha · válidas por 45 dias</div><span class="save-pill">Economia de até R$ 30</span></div>
+  <div class="combo-c feat-border"><div class="best">MAIS ESCOLHIDO</div><div class="combo-h"><div class="combo-n">Combo Mensal — 4 sessões</div><div class="combo-p">R$ 390</div></div><div class="combo-d">1 sessão por semana · 60 min · livre escolha · 30 dias</div><span class="save-pill">R$ 97,50/sessão · economia de R$ 90</span></div>
+  <div class="combo-c"><div class="best best-b">MELHOR INVESTIMENTO</div><div class="combo-h"><div class="combo-n">Assinatura Serenê — 3 meses</div><div class="combo-p">R$ 1.080</div></div><div class="combo-d">12 sessões · 1 por semana · 60 min · prioridade de agenda</div><span class="save-pill">R$ 90/sessão · economia de R$ 360</span></div>
+
+  <a class="btn-wpp" style="width:100%;justify-content:center;padding:13px;margin-top:4px;font-size:13px;" href="https://wa.me/5562993303512?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20os%20combos%20e%20pacotes%20da%20Serenê%20ASMR." target="_blank">📦 Contratar um combo pelo WhatsApp</a>
+</div>
+
+<!-- AGENDAR -->
+<div id="page-agendar" class="page">
+  <div class="wpp-section">
+    <div class="wpp-title">Como agendar sua sessão</div>
+    <div class="wpp-desc">O agendamento é feito diretamente pelo WhatsApp — rápido, fácil e sem complicação.</div>
+    <div class="wpp-steps">
+      <div class="wpp-step"><div class="wpp-step-num">1</div><div class="wpp-step-txt">Escolha o serviço que deseja</div></div>
+      <div class="wpp-step"><div class="wpp-step-num">2</div><div class="wpp-step-txt">Clique em "Agendar" e abra o WhatsApp</div></div>
+      <div class="wpp-step"><div class="wpp-step-num">3</div><div class="wpp-step-txt">Confirme o horário e pronto!</div></div>
+    </div>
+    <a class="btn-wpp-big" href="https://wa.me/5562993303512?text=Olá!%20Gostaria%20de%20agendar%20uma%20sessão%20na%20Serenê%20ASMR.%20Quais%20serviços%20e%20horários%20estão%20disponíveis%3F" target="_blank">💬 Falar no WhatsApp agora</a>
+  </div>
+
+  <span class="slabel">ESCOLHA SEU SERVIÇO E AGENDE</span>
+
+  <div class="svc-card">
+    <div class="svc-head"><div class="svc-name">Serenê Flow</div><div class="svc-price">R$ 120 · 60 min</div></div>
+    <div class="svc-desc">Cabeça, rosto e costas.</div>
+    <a class="btn-wpp" style="width:100%;justify-content:center;" href="https://wa.me/5562993303512?text=Olá!%20Gostaria%20de%20agendar%20a%20sessão%20*Serenê%20Flow*%20(60%20min%20-%20R$%20120).%20Quais%20horários%20estão%20disponíveis%3F" target="_blank">📅 Agendar Serenê Flow</a>
+  </div>
+  <div class="svc-card">
+    <div class="svc-head"><div class="svc-name">Serenê Essenza</div><div class="svc-price">R$ 150 · 60 min</div></div>
+    <div class="svc-desc">Corpo completo.</div>
+    <a class="btn-wpp" style="width:100%;justify-content:center;" href="https://wa.me/5562993303512?text=Olá!%20Gostaria%20de%20agendar%20a%20sessão%20*Serenê%20Essenza*%20(60%20min%20-%20R$%20150).%20Quais%20horários%20estão%20disponíveis%3F" target="_blank">📅 Agendar Serenê Essenza</a>
+  </div>
+  <div class="svc-card">
+    <div class="svc-head"><div class="svc-name">Scratching Essenza</div><div class="svc-price">R$ 70 · 30 min &nbsp;·&nbsp; R$ 120 · 60 min</div></div>
+    <div class="svc-desc">Costas, nuca, orelha e rosto.</div>
+    <a class="btn-wpp" style="width:100%;justify-content:center;" href="https://wa.me/5562993303512?text=Olá!%20Gostaria%20de%20agendar%20a%20sessão%20*Scratching%20Essenza*.%20Quais%20horários%20estão%20disponíveis%3F%20(30%20min%20-%20R$%2070%20ou%2060%20min%20-%20R$%20120)" target="_blank">📅 Agendar Scratching Essenza</a>
+  </div>
+  <div class="svc-card">
+    <div class="svc-head"><div class="svc-name">Serenê Crânio Cervical</div><div class="svc-price">R$ 65 · 30 min &nbsp;·&nbsp; R$ 110 · 60 min</div></div>
+    <div class="svc-desc">Cabeça, nuca e cervical.</div>
+    <a class="btn-wpp" style="width:100%;justify-content:center;" href="https://wa.me/5562993303512?text=Olá!%20Gostaria%20de%20agendar%20a%20sessão%20*Serenê%20Crânio%20Cervical*.%20Quais%20horários%20estão%20disponíveis%3F%20(30%20min%20-%20R$%2065%20ou%2060%20min%20-%20R$%20110)" target="_blank">📅 Agendar Crânio Cervical</a>
+  </div>
+  <div class="svc-card">
+    <div class="svc-head"><div class="svc-name">Back Scratching & Cranial</div><div class="svc-price">R$ 120 · 60 min</div></div>
+    <div class="svc-desc">Scratching costas + massagem craniana.</div>
+    <a class="btn-wpp" style="width:100%;justify-content:center;" href="https://wa.me/5562993303512?text=Olá!%20Gostaria%20de%20agendar%20a%20sessão%20*Back%20Scratching%20%26%20Cranial*%20(60%20min%20-%20R$%20120).%20Quais%20horários%20estão%20disponíveis%3F" target="_blank">📅 Agendar Back Scratching</a>
+  </div>
+
+  <div class="divider"></div>
+  <span class="slabel">PERGUNTAS FREQUENTES</span>
+  <div class="faq-item"><div class="faq-q">Preciso me despir para as sessões?</div><div class="faq-a">Não. Todas as sessões são realizadas com roupa confortável. Você não precisa se despir em nenhum momento.</div></div>
+  <div class="faq-item"><div class="faq-q">Qual a diferença para uma massagem comum?</div><div class="faq-a">As sessões da Serenê são experiências de relaxamento sensorial, não massagens terapêuticas. O foco é no conforto, bem-estar e estímulos suaves — não em resultado clínico.</div></div>
+  <div class="faq-item"><div class="faq-q">Como funciona o cupom SERENE10?</div><div class="faq-a">O cupom dá 10% de desconto na sua primeira sessão de 60 min. Basta informar o cupom na hora do agendamento pelo WhatsApp.</div></div>
+  <div class="faq-item"><div class="faq-q">Quais formas de pagamento são aceitas?</div><div class="faq-a">Pix, cartão no local e link de pagamento online.</div></div>
+  <div class="faq-item"><div class="faq-q">Posso cancelar ou remarcar?</div><div class="faq-a">Sim. Entre em contato pelo WhatsApp com pelo menos 2 horas de antecedência.</div></div>
+</div>
+
+<!-- SOBRE -->
+<div id="page-sobre" class="page">
+  <div class="sobre-box">
+    <div class="sobre-title">Sobre a Serenê ASMR</div>
+    <div class="sobre-text">A Serenê nasceu de uma necessidade real: criar um espaço onde as pessoas possam realmente parar. Em meio a rotinas aceleradas, estresse constante e pouco tempo para si, a Serenê oferece algo raro — um momento genuíno de presença, toque e cuidado.</div>
+    <div class="sobre-text">Somos pioneiros no ASMR presencial no Brasil. Nossas sessões combinam técnicas de toque suave, scratching, massagem craniana e estímulos sensoriais para proporcionar relaxamento profundo e alívio do estresse.</div>
+    <div class="info-row"><span class="info-icon">📍</span><span>Goiânia, Goiás</span></div>
+    <div class="info-row"><span class="info-icon">💬</span><a href="https://wa.me/5562993303512" target="_blank" style="color:var(--gm);text-decoration:none;">(62) 99330-3512</a></div>
+    <div class="info-row"><span class="info-icon">📸</span><span>@serene.asmr</span></div>
+    <div class="info-row"><span class="info-icon">🕐</span><span>Horários variados — consulte disponibilidade pelo WhatsApp</span></div>
+  </div>
+  <a class="btn-wpp-big" style="width:100%;justify-content:center;" href="https://wa.me/5562993303512?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20a%20Serenê%20ASMR." target="_blank">💬 Falar com a Serenê</a>
+</div>
+
+</div>
+<script>
+function showPage(p){
+  document.querySelectorAll('.page').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(el=>el.classList.remove('active'));
+  document.getElementById('page-'+p).classList.add('active');
+  const idx={home:0,services:1,agendar:2,sobre:3}[p];
+  document.querySelectorAll('.tab')[idx].classList.add('active');
+}
+</script>
+</body>
+</html>
